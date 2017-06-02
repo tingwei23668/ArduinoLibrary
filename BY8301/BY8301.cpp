@@ -23,17 +23,17 @@ void BY8301::begin(uint16_t _baud){
 	delay(100);
 }
 /**
-	³õÊ¼»¯²Ù×÷
+	åˆå§‹åŒ–æ“ä½œ
 **/
 void BY8301::init(uint8_t mode,uint8_t vol){
-	begin(9600);//µ÷ÓÃ±¾º¯Êı
-	//reset();¸´Î»
+	begin(9600);//è°ƒç”¨æœ¬å‡½æ•°
+	//reset();å¤ä½
 	setMode(mode);
 	return volumn(vol);
 }
 void  BY8301::sendCommand(uint8_t cmd,uint8_t *buf,uint16_t len){
 	sendBuffer[0] = STX;
-	sendBuffer[1] = len+3;//³¤¶È£¬²Ù×÷Âë£¬Ğ£ÑéÂë
+	sendBuffer[1] = len+3;//é•¿åº¦ï¼Œæ“ä½œç ï¼Œæ ¡éªŒç 
 	sendBuffer[2] = cmd;
 	sendBuffer[len+4] = ETX;
 	sendBuffer[len+3]=(sendBuffer[1]^cmd);
@@ -51,7 +51,7 @@ void  BY8301::sendCommand(uint8_t cmd,uint8_t *buf,uint16_t len){
 	delay(160);
 	return sendBuffer;
 }
-/*¿ØÖÆÖ¸Áî*/
+/*æ§åˆ¶æŒ‡ä»¤*/
 
 void BY8301::play(){
 	sendCommand(CMD_PLAY,NULL,0);
@@ -99,7 +99,7 @@ void BY8301::setMode(uint8_t mode){
 	cmdBuffer[0] = mode;
 	sendCommand(CMD_MODE,cmdBuffer,1);
 }
-void BY8301::folder(uint8_t temp ){//ÎÄ¼ş¼ĞÇĞ»»
+void BY8301::folder(uint8_t temp ){//æ–‡ä»¶å¤¹åˆ‡æ¢
 	cmdBuffer[0] = temp;
 	sendCommand(CMD_FOLDER,cmdBuffer,1);
 }
@@ -108,7 +108,7 @@ void BY8301::setDevice(uint8_t device){
 	sendCommand(CMD_DEVICE,NULL,0);
 }
 void BY8301::choose(uint16_t num){
-	cmdBuffer[0] = num>>8;//²ÎÊı¸ßÎ»£¬Êı×é¸´ÖÆÊ±Îª¸ßÎ»
+	cmdBuffer[0] = num>>8;//å‚æ•°é«˜ä½ï¼Œæ•°ç»„å¤åˆ¶æ—¶ä¸ºé«˜ä½
 	cmdBuffer[1] = num&0xFF;
 	sendCommand(CMD_CHOOSE,cmdBuffer,2);
 }
@@ -117,7 +117,7 @@ void BY8301::chooseFile(uint8_t folder, uint8_t file){
 	cmdBuffer[1] = folder;
 	sendCommand(CMD_FILECH,NULL,0);
 }
-/*²éÑ¯Ö¸Áî*/
+/*æŸ¥è¯¢æŒ‡ä»¤*/
 uint16_t BY8301::queryNum(uint8_t cmd){
 	if(audioSwSerial){
 		audioSwSerial->stopListening();
@@ -202,43 +202,7 @@ uint16_t BY8301::queryTotalTime(){
 uint16_t BY8301::queryFiles(){
 	return queryNum(QUERY_FILES);
 }
-//²éÑ¯Ó¦¶ÁÈ¡´®¿ÚÊı¾İ<ÔİÊ±²é²»µ½>
+//æŸ¥è¯¢åº”è¯»å–ä¸²å£æ•°æ®<æš‚æ—¶æŸ¥ä¸åˆ°>
 //String queryName(){
 //	sendCommand(QUERY_NAME,NULL,0);
 //}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
